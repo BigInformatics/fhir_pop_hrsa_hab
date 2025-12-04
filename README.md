@@ -21,10 +21,12 @@ python post_process.py
 Obtain the [FHIR Uploader](https://github.com/BigInformatics/fhir_uploader) and execute:
 
 ```
+git clone https://github.com/BigInformatics/fhir_uploader.git
+cd fhir_uploader
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python fhir_uploader.py
+python app.py
 ```
 
 ## Scripts
