@@ -22,3 +22,10 @@
 - Automatic retry logic
 - Progress tracking and statistics
 - Rate limiting protection
+
+## 4. **medications_and_labs.py** - Comprehensive reference
+
+- All HIV medication RxNorm codes with descriptions
+- All LOINC codes for HIV, Hepatitis, lipids, STI screening
+- Clinical interpretation guidance
+- Usage notes and monitoring frequencies
