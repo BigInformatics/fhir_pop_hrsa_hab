@@ -11,7 +11,9 @@ wget https://github.com/synthetichealth/synthea/releases/download/v3.2.0/synthea
 Install libraries and prepare synthetic records
 
 ```
-pip install -r requirements.txt
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 python population_generator.py
 python post_process.py
 ```
@@ -19,7 +21,9 @@ python post_process.py
 Obtain the [FHIR Uploader](https://github.com/BigInformatics/fhir_uploader) and execute:
 
 ```
-pip install -r requirements.txt
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 python fhir_uploader.py
 ```
 
