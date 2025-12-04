@@ -10,6 +10,10 @@ import random
 from pathlib import Path
 from typing import Dict, List
 import numpy as np
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Demographics based on 2023 ADAP Data Report
 ADAP_DEMOGRAPHICS = {
@@ -90,11 +94,13 @@ REQUIRED_LOINC_CODES = {
 class SyntheaPopulationGenerator:
     """Generates synthetic patient populations using Synthea"""
     
-    def __init__(self, 
+    def __init__(self,
                  synthea_jar_path: str,
-                 output_dir: str = "./output",
+                 output_dir: str = None,
                  population_size: int = 1000):
         self.synthea_jar_path = Path(synthea_jar_path)
+        if output_dir is None:
+            output_dir = os.getenv('PROCESSED_FHIR_DIR', './output')
         self.output_dir = Path(output_dir)
         self.population_size = population_size
         self.output_dir.mkdir(exist_ok=True, parents=True)
@@ -228,7 +234,7 @@ def main():
     
     generator = SyntheaPopulationGenerator(
         synthea_jar_path="./synthea-with-dependencies.jar",
-        output_dir="./synthea_output",
+        output_dir=os.getenv('PROCESSED_FHIR_DIR', './output_fhir'),
         population_size=1000
     )
     

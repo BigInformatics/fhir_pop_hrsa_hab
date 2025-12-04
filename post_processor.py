@@ -11,6 +11,10 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime, timedelta
 import uuid
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # HIV Medication RxNorm codes (same as before)
@@ -218,8 +222,10 @@ BASELINE_ONLY_TESTS = {
 class FHIRPostProcessor:
     """Add comprehensive HIV-related medications and lab results to FHIR bundles"""
     
-    def __init__(self, input_dir: str, output_dir: str, adap_percentage: float = 0.5):
+    def __init__(self, input_dir: str, output_dir: str = None, adap_percentage: float = 0.5):
         self.input_dir = Path(input_dir)
+        if output_dir is None:
+            output_dir = os.getenv('PROCESSED_FHIR_DIR', './processed_fhir')
         self.output_dir = Path(output_dir)
         self.adap_percentage = adap_percentage
         self.output_dir.mkdir(exist_ok=True, parents=True)
@@ -498,12 +504,12 @@ class FHIRPostProcessor:
 
 def main():
     """Main execution"""
+    output_path = os.getenv('PROCESSED_FHIR_DIR', './processed_fhir')
     processor = FHIRPostProcessor(
-        input_dir="./synthea_output/fhir",
-        output_dir="./processed_fhir",
+        input_dir=os.path.join(output_path, 'fhir'),
         adap_percentage=0.5  # 50% of patients in ADAP program
     )
-    
+
     processor.process_all_bundles()
 
 
